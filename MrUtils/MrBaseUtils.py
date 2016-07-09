@@ -40,6 +40,20 @@ def adb_connect(device_ip):
     
     return False
 
+def adb_connect_with_root():
+    
+    if not adb_connect():  # adb connect
+        print 'Error, when adb connect to the device!'
+        exit(1)
+        
+    if not run_cmd_adb_root_from_subprocess():
+        print 'Error, when run adb as root!'
+        exit(1)
+
+    if not adb_connect():   # adb connect as root
+        print 'Error, when adb connect to the device with root!'
+        exit(1)
+
 def run_cmd_adb_root_from_subprocess():
     
     cmd = 'adb root'
@@ -65,22 +79,7 @@ def run_cmd_adb_root_from_subprocess():
             print 'Error, adb root failed.'
             return False
 
-def adb_connect_with_root():
-    
-    if not adb_connect():  # adb connect
-        print 'Error, when adb connect to the device!'
-        exit(1)
-        
-    if not run_cmd_adb_root_from_subprocess():
-        print 'Error, when run adb as root!'
-        exit(1)
-
-    if not adb_connect():   # adb connect as root
-        print 'Error, when adb connect to the device with root!'
-        exit(1)
-
 def build_logcat_command(log_path, log_level):
-    
     return 'adb logcat -c && adb logcat -f %s -v threadtime *:%s' %(log_path, log_level)
 
 def pull_mr_logs(src_path, target_path):

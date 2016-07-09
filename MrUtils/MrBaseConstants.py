@@ -42,7 +42,7 @@ g_mr_log_sub_dir_path_for_shell = ''
 g_captures_dir_path_for_shell = ''
 g_logcat_file_path_for_shell = ''
 
-def init_g_path_vars(g_run_num):
+def init_g_path_vars(run_num):
     
     global g_mr_prj_root_path
     global g_mr_tcs_dir_path
@@ -61,14 +61,14 @@ def init_g_path_vars(g_run_num):
     g_mr_tcs_dir_path = os.path.join(g_mr_prj_root_path, 'MrTestCases')
     
     g_mr_log_root_dir_path_for_win = r'%s\mr_logs' %(g_mr_prj_root_path)
-    g_mr_log_sub_dir_path_for_win = r'%s\mr_logs_%s_%s' %(g_mr_log_root_dir_path_for_win, g_cur_date, g_run_num)
-    g_mr_log_file_path_for_win = os.path.join(g_mr_log_sub_dir_path_for_win, ('mr_log_%s_%s.log' %(g_cur_date, g_run_num)))
+    g_mr_log_sub_dir_path_for_win = r'%s\mr_logs_%s_%s' %(g_mr_log_root_dir_path_for_win, g_cur_date, run_num)
+    g_mr_log_file_path_for_win = os.path.join(g_mr_log_sub_dir_path_for_win, ('mr_log_%s_%s.log' %(g_cur_date, run_num)))
     g_captures_dir_path_for_win = r'%s\captures' %(g_mr_log_sub_dir_path_for_win)
     
     g_mr_log_root_dir_path_for_shell = '/sdcard/testlogs/mr_logs'
-    g_mr_log_sub_dir_path_for_shell = '%s/mr_logs_%s_%s' %(g_mr_log_root_dir_path_for_shell, g_cur_date, g_run_num)
+    g_mr_log_sub_dir_path_for_shell = '%s/mr_logs_%s_%s' %(g_mr_log_root_dir_path_for_shell, g_cur_date, run_num)
     g_captures_dir_path_for_shell = '%s/captures' %(g_mr_log_sub_dir_path_for_shell)
-    g_logcat_file_path_for_shell = '%s/mr_logcat_%s_%s.log' %(g_mr_log_sub_dir_path_for_shell, g_run_num, g_cur_date)
+    g_logcat_file_path_for_shell = '%s/mr_logcat_%s_%s.log' %(g_mr_log_sub_dir_path_for_shell, run_num, g_cur_date)
 
 
 # ----------------------------------------------------

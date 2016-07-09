@@ -18,8 +18,8 @@ from com.android.monkeyrunner import MonkeyRunner as mr
 # from com.android.monkeyrunner import MonkeyDevice as md
 # from com.android.monkeyrunner import MonkeyImage as mi
 # from com.android.monkeyrunner import MonkeyView
-# from com.android.monkeyrunner.easy import By
 from com.android.monkeyrunner.easy import EasyMonkeyDevice
+# from com.android.monkeyrunner.easy import By
 
 # from com.android.chimpchat.hierarchyviewer import HierarchyViewer
 # from com.android.hierarchyviewerlib.models import ViewNode
@@ -30,7 +30,7 @@ from com.android.monkeyrunner.easy import EasyMonkeyDevice
 # ----------------------------------------------------
 def get_easy_device(device_no):
     
-    device = device_connect(device_no)
+    device = device_connect_and_return(device_no)
     easy_device = EasyMonkeyDevice(device)
     
     if easy_device == None:
@@ -39,7 +39,7 @@ def get_easy_device(device_no):
 
     return easy_device
 
-def device_connect(device_no):
+def device_connect_and_return(device_no):
 
     print 'connect to device %s' %(device_no)
     device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
@@ -57,12 +57,13 @@ def start_activity(device, component_name):
     
 def wait_for_activity_started(device, component_name):
     
-    for i in range(int(MrBaseConstants.g_time_out)):
+    for i in range(0,int(MrBaseConstants.g_time_out)):
         ret = device.shell('dumpsys activity | grep mFocusedActivity')
         if ret.find(component_name) >= 0:
             return
         else:
-            mr_sleep(MrBaseConstants.g_short_wait_time)
+            mr.sleep(MrBaseConstants.g_short_wait_time)
+            print 'Wait for activity start %s second.' %(i + 1)
     
 def take_snapshot(device, dir_path):
     
@@ -80,9 +81,6 @@ def adb_screen_capture(dir_path):
     cmd = 'adb shell screencap -p %s' %(path)
     print cmd
     os.system(cmd)
-
-def mr_sleep(sec):
-    mr.sleep(sec)
 
 
 # ----------------------------------------------------
@@ -128,12 +126,12 @@ def wait_for_view_existance(device, view_id, timeout=3):
 def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
 
     device.press(key)
-    mr_sleep(wait_time)
+    mr.sleep(wait_time)
 
 def input_and_wait(device, text, wait_time=MrBaseConstants.g_short_wait_time):
 
     device.type(text)
-    mr_sleep(wait_time)
+    mr.sleep(wait_time)
 
 
 if __name__ == '__main__':
