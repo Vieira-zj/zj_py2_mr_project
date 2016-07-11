@@ -6,13 +6,17 @@
 import sys
 
 from com.android.monkeyrunner import MonkeyRunner as mr  
+from com.android.monkeyrunner.easy import EasyMonkeyDevice,By
+from com.android.monkeyrunner import MonkeyDevice
 
 # ----------------------------------------------------------
 # Demo scripts
 # ----------------------------------------------------------
 def mr_test_demo_for_device():
     
-    device = get_connected_device()
+    print 'test apis for mr and device.'
+    
+#     device = get_connected_device()
 
 #     device.startActivity(component='tv.fun.settings/.general.GeneralSettingsActivity')
 #     mr.sleep(3.0)
@@ -36,18 +40,64 @@ def mr_test_demo_for_device():
 #     root = device.getRootView()
 #     print root.getViewClass()
 
-def mr_test_demo_for_easydevice():
-    
-    print 'TODO'
+#     list_views = device.getViewsByText('通用设置')
+#     print len(list_views)
 
 def mr_test_demo_for_hierarchyviewer():
     
+    print 'test the apis for hierarchyviewer'
+    
+#     device = get_connected_device()
+#     hierarchy = device.getHierarchyViewer()
+
+    # setting home page
+#     title = hierarchy.findViewById('id/setting_title')
+#     point =  hierarchy.getAbsoluteCenterOfView(title)  # Point {960, 171}
+#     print 'position x -> %d, y -> %d' %(point.x, point.y)
+
+    # launcher home page
+#     title = hierarchy.findViewById('id/title')  # get the 1st match view
+#     point = hierarchy.getAbsoluteCenterOfView(title)
+#     print 'touch at (%d,%d)' %(point.x, point.y)
+#     device.touch(point.x, point.y, 'DOWN_AND_UP')
+#     mr.sleep(1)
+#     device.press('KEYCODE_ENTER')
+#     mr.sleep(5)
+    
+    # film list page
+#     tab_title = hierarchy.findViewById('id/tab_title')
+#     print hierarchy.getText(tab_title).encode('utf8')
+#     card_title = hierarchy.findViewById('id/title')
+#     print hierarchy.getText(card_title).encode('utf8')
+    
+    # news page
+#     title = hierarchy.findViewById('id/news_special_list_item_title')
+#     print hierarchy.getText(title).encode('utf8')
+#     sub_title = hierarchy.findViewById('id/news_play_title')
+#     print hierarchy.getText(sub_title).encode('utf8')
+    
+def mr_test_demo_for_easydevice():
+    
+    print 'test apis for easydevice.'
+    
     device = get_connected_device()
+    easy_device = EasyMonkeyDevice(device)
+    
+    # launcher home page
+#     device.press('KEYCODE_HOME')
+#     mr.sleep(1)
+#     easy_device.touch(By.id('id/title'), MonkeyDevice.DOWN_AND_UP)
+#     mr.sleep(1)
+#     device.press('KEYCODE_ENTER')
+#     mr.sleep(5)
+    
+    # film list page
+#     tab_title_text = easy_device.getText(By.id('id/tab_title'))
+#     print tab_title_text.encode('utf8')
 
-#     h = device.getHierarchyViewer()
-#     node = h.findViewById('id/setting_title')
-#     print node
-
+    # touch on card of right area
+    easy_device.touch(By.id('id/subtitle'), MonkeyDevice.DOWN_AND_UP)
+    mr.sleep(1)
 
 def get_connected_device():
 
@@ -65,6 +115,8 @@ def get_connected_device():
 # ----------------------------------------------------------
 if __name__ == '__main__':
 
-    mr_test_demo_for_device()
+#     mr_test_demo_for_device()
+#     mr_test_demo_for_hierarchyviewer()
+    mr_test_demo_for_easydevice()
 
     pass
