@@ -47,7 +47,7 @@ def run_setup():
 #     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
 
 def run_clearup():
-    print 'TODO: clearup'
+    print 'TODO: runner clearup'
 #     MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, 
 #                              MrBaseConstants.g_mr_log_sub_dir_path_for_win)
 

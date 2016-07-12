@@ -109,10 +109,6 @@ def get_monkey_device():
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-if __name__ == '__main__':
-
-#     mr_test_demo_for_device()
-#     mr_test_demo_for_hierarchyviewer()
-    mr_test_demo_for_easydevice()
-
-    pass
+# mr_test_demo_for_device()
+# mr_test_demo_for_hierarchyviewer()
+mr_test_demo_for_easydevice()
