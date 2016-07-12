@@ -16,7 +16,7 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_script = 'MrTestDemo01.py'
+g_user_run_script = 'MrTestDemo02.py'
 
 g_user_logcate_log_level = 'I'
 

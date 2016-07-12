@@ -1,2 +1,4 @@
 *.pyc
 *.class
+
+mr_test_log/

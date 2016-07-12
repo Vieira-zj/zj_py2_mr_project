@@ -11,6 +11,7 @@ Include the functions called from monkeyrunner test case.
 import os
 import sys
 import time
+import logging
 
 from MrUtils import MrBaseConstants
 
@@ -99,11 +100,11 @@ def find_view_by_id(device, view_id):
 
 def get_text_by_id(device, view_id):
 
-    print 'get text view by id %s' %(view_id)
+    print 'get text view by id -> %s' %(view_id)
     hierarchy_viewer = get_hierarchy_viewer(device)
     view_node = hierarchy_viewer.findViewById(view_id)
 
-    return hierarchy_viewer.getText(view_node)
+    return hierarchy_viewer.getText(view_node).encode('utf8')
 
 def wait_for_view_existance(device, view_id, timeout=3):
 
@@ -134,6 +135,33 @@ def input_and_wait(device, text, wait_time=MrBaseConstants.g_short_wait_time):
     mr.sleep(wait_time)
 
 
+# ----------------------------------------------------
+# Log functions
+# ----------------------------------------------------
+def init_log_config(prj_path):
+
+    long_format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
+    short_format = '%(filename)-12s: %(levelname)-8s %(message)s'
+    
+    long_date_format = '%a, %d %b %Y %H:%M:%S'
+    short_date_format = '%d %b %H:%M:%S'
+
+    # define console log
+    logging.basicConfig(level=logging.DEBUG, format=short_format, datefmt=short_date_format)
+    
+    # define file log
+    file_name = 'mr_test_log_%s.log' %(time.strftime('%y-%m-%d %H_%M_%S'))
+    file_path = os.path.join(prj_path,'mr_test_log',file_name)
+    print 'log file path ---> %s' %file_path
+    log_file = logging.FileHandler(filename=file_path, mode='w')
+    log_file.setLevel(logging.WARN)
+    log_file.setFormatter(logging.Formatter(fmt=long_format, datefmt=long_date_format))
+    logging.getLogger('').addHandler(log_file)
+
+
+# ----------------------------------------------------
+# Main
+# ----------------------------------------------------
 if __name__ == '__main__':
 
     pass
