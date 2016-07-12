@@ -13,10 +13,9 @@ from com.android.monkeyrunner import MonkeyDevice
 # Demo scripts
 # ----------------------------------------------------------
 def mr_test_demo_for_device():
-    
     print 'test apis for mr and device.'
     
-#     device = get_connected_device()
+#     device = get_monkey_device()
 
 #     device.startActivity(component='tv.fun.settings/.general.GeneralSettingsActivity')
 #     mr.sleep(3.0)
@@ -44,10 +43,9 @@ def mr_test_demo_for_device():
 #     print len(list_views)
 
 def mr_test_demo_for_hierarchyviewer():
+    print 'test the apis for hierarchyviewer.'
     
-    print 'test the apis for hierarchyviewer'
-    
-#     device = get_connected_device()
+#     device = get_monkey_device()
 #     hierarchy = device.getHierarchyViewer()
 
     # setting home page
@@ -77,10 +75,9 @@ def mr_test_demo_for_hierarchyviewer():
 #     print hierarchy.getText(sub_title).encode('utf8')
     
 def mr_test_demo_for_easydevice():
-    
     print 'test apis for easydevice.'
     
-    device = get_connected_device()
+    device = get_monkey_device()
     easy_device = EasyMonkeyDevice(device)
     
     # launcher home page
@@ -99,9 +96,8 @@ def mr_test_demo_for_easydevice():
     easy_device.touch(By.id('id/subtitle'), MonkeyDevice.DOWN_AND_UP)
     mr.sleep(1)
 
-def get_connected_device():
-
-    #connect device
+def get_monkey_device():
+    # create monkey device
     device = mr.waitForConnection(3.0, '172.17.5.134:5555')
     if not device:
         print >> sys.stderr,"fail"  
