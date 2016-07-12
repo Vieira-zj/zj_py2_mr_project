@@ -43,7 +43,6 @@ g_captures_dir_path_for_shell = ''
 g_logcat_file_path_for_shell = ''
 
 def init_g_path_vars(run_num):
-    
     global g_mr_prj_root_path
     global g_mr_tcs_dir_path
     

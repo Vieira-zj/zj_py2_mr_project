@@ -16,7 +16,6 @@ import subprocess
 # ADB functions
 # ----------------------------------------------------
 def verify_adb_devices_serialno():
-
     cmd = 'adb get-serialno'
     print cmd
 
@@ -26,7 +25,6 @@ def verify_adb_devices_serialno():
         return True
 
 def adb_connect(device_ip):
-
     try_adb_connect_times = 3
     wait_time = 3
     cmd = 'adb connect %s' %(device_ip)
@@ -41,7 +39,6 @@ def adb_connect(device_ip):
     return False
 
 def adb_connect_with_root():
-    
     if not adb_connect():  # adb connect
         print 'Error, when adb connect to the device!'
         exit(1)
@@ -55,7 +52,6 @@ def adb_connect_with_root():
         exit(1)
 
 def run_cmd_adb_root_from_subprocess():
-    
     cmd = 'adb root'
     print cmd
     p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
@@ -83,7 +79,6 @@ def build_logcat_command(log_path, log_level):
     return 'adb logcat -c && adb logcat -f %s -v threadtime *:%s' %(log_path, log_level)
 
 def pull_mr_logs(src_path, target_path):
-    
     cmd = 'adb pull %s %s' %(src_path, target_path)
     print cmd
     os.system(cmd)
@@ -93,7 +88,6 @@ def pull_mr_logs(src_path, target_path):
 # IO functions
 # ----------------------------------------------------
 def mkdir_for_shell(path_dir):
-    
     cmd = 'adb shell mkdir -p %s' %(path_dir)
     print cmd
     os.system(cmd)
@@ -104,7 +98,6 @@ def remove_dir_for_shell(path_dir):
     os.system(cmd)
 
 def create_log_dir_for_win(path_dir):
-    
     if os.path.exists(path_dir):
         print 'Warning, the path (%s) is exist.' %(path_dir)
         return

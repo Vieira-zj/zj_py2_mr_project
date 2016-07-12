@@ -6,7 +6,7 @@ import os
 import time
 
 from MrUtils import MrBaseConstants
-from MrUtils import MrBaseUtils
+# from MrUtils import MrBaseUtils
 
 # ----------------------------------------------------------
 # User defined variables
@@ -25,7 +25,6 @@ g_user_logcate_log_level = 'I'
 # Build tests
 # ----------------------------------------------------------
 def get_all_tests_from_dir(dir_path):
-    
     tests = []
     tc_prefix = MrBaseConstants.g_mr_tcs_prefix
     
@@ -41,7 +40,6 @@ def get_all_tests_from_dir(dir_path):
         exit(1)
 
 def run_setup():
-    
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
     
     MrBaseConstants.init_g_path_vars(g_user_run_num)
@@ -49,23 +47,23 @@ def run_setup():
 #     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
 
 def run_clearup():
-    MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, MrBaseConstants.g_mr_log_sub_dir_path_for_win)
+    print 'TODO: clearup'
+#     MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, 
+#                              MrBaseConstants.g_mr_log_sub_dir_path_for_win)
 
 
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
 def run_mr_script(script_path):
-
     cmd = '%s %s' %(MrBaseConstants.get_mr_run_bat_path(), script_path)
-    print 'Run script ---> %s' %(cmd)
+    print 'Run script: %s' %(cmd)
     ret = os.system(cmd)
     
     if ret != 0:
         print 'Error, when run the monkeyrunner command.'
 
 def mr_process():
-    
     test_scripts = []
     test_scripts.append(os.path.join(MrBaseConstants.g_mr_tcs_dir_path, g_user_run_script))
     
@@ -74,19 +72,18 @@ def mr_process():
         exit(1)
     
     for test_script in test_scripts:
-        print '-----> start run test script -> %s' %(test_script)
+        print '-----> start run test script: %s' %(test_script)
         run_mr_script(test_script)
-        print '-----> end run test script -> %s' %(test_script)
+        print '-----> end run test script: %s' %(test_script)
         
 def main(fn):
-    
     run_setup()
     start = int(time.clock())
     fn()
     end = int(time.clock())
-#     run_clearup()
+    run_clearup()
     
-    print "MonkeyRunner finished and cost %d minutes and %s seconds." %((end-start)/60, (end-start)%60)
+    print "MonkeyRunner finished and cost %d minutes and %s seconds!" %((end-start)/60, (end-start)%60)
 
 
 if __name__ == '__main__':
