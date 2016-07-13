@@ -4,7 +4,7 @@ Created on 2015-7-9
 
 @author: zhengjin
 
-Include the functions called from monkeyrunner test case.
+Include the wrapped functions which use the monkeyrunner APIs.
 
 '''
 

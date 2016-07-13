@@ -2,6 +2,9 @@
 
 '''
 @author: zhengjin
+
+Include all the global constant variables.
+
 '''
 
 import time
@@ -105,8 +108,3 @@ def get_mr_run_bat_path():
 
     print 'Error, when get the path for android sdk tools.'
     exit(1)
-
-
-if __name__ == '__main__':
-
-    pass

@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 '''
 @author: zhengjin
+
+Executor to run the monkeyrunner scripts.
+
 '''
 import os
 import time
 
 from MrUtils import MrBaseConstants
-# from MrUtils import MrBaseUtils
+from MrUtils import MrBaseUtils
 
 # ----------------------------------------------------------
 # User defined variables
@@ -41,8 +44,9 @@ def get_all_tests_from_dir(dir_path):
 
 def run_setup():
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
-    
     MrBaseConstants.init_g_path_vars(g_user_run_num)
+
+    MrBaseUtils.adb_connect_with_root(g_user_device_ip)
 #     MrBaseUtils.mkdir_for_shell(MrBaseConstants.g_captures_dir_path_for_shell)
 #     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
 

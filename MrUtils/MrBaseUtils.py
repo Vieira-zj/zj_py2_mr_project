@@ -4,7 +4,7 @@ Created on 2015-7-9
 
 @author: zhengjin
 
-Include functions called from MrTestRunner
+Include non-monkeyrunner functions.
 
 '''
 
@@ -38,8 +38,8 @@ def adb_connect(device_ip):
     
     return False
 
-def adb_connect_with_root():
-    if not adb_connect():  # adb connect
+def adb_connect_with_root(device_ip):
+    if not adb_connect(device_ip):  # adb connect
         print 'Error, when adb connect to the device!'
         exit(1)
         
@@ -47,7 +47,7 @@ def adb_connect_with_root():
         print 'Error, when run adb as root!'
         exit(1)
 
-    if not adb_connect():   # adb connect as root
+    if not adb_connect(device_ip):   # adb connect as root
         print 'Error, when adb connect to the device with root!'
         exit(1)
 

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
 @author: zhengjin
+
+A demo to test the APIs for MonkeyRunner, MonkeyDevice and Hierarchyviewer.
+
 '''
 
 import sys

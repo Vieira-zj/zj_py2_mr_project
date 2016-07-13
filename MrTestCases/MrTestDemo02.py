@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 '''
 @author: zhengjin
+
+A demo to write the test scripts base on unit test framework.
+
 '''
 
 import os
