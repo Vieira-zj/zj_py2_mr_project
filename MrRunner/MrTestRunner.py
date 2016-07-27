@@ -19,7 +19,7 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_script = 'MrTestLauncher.py'
+g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
 
 g_user_logcate_log_level = 'I'
 g_user_flag_create_adb_connect = False
@@ -54,7 +54,7 @@ def run_setup():
 #     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
 
 def run_clearup():
-    print 'TODO:'
+    print 'TODO: run clear up'
 #     MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, 
 #                              MrBaseConstants.g_mr_log_sub_dir_path_for_win)
 
@@ -72,8 +72,8 @@ def run_mr_script(script_path):
 
 def mr_process():
     test_scripts = []
-    test_scripts.append(os.path.join(MrBaseConstants.g_mr_tcs_dir_path, g_user_run_script))
-    
+    for run_script in g_user_run_scripts:
+        test_scripts.append(os.path.join(MrBaseConstants.g_mr_tcs_dir_path, run_script))
     if len(test_scripts) == 0:
         print 'Error, no test case added!'
         exit(1)
@@ -81,7 +81,7 @@ def mr_process():
     for test_script in test_scripts:
         print 'START ---> run test script: %s' %(test_script)
         run_mr_script(test_script)
-        print 'END ---> run test script: %s' %(test_script)
+        print 'END ---> run test script: %s\n' %(test_script)
         
 def main(fn):
     run_setup()

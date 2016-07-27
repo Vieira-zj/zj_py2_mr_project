@@ -84,34 +84,28 @@ def adb_screen_capture(dir_path):
 def get_hierarchy_viewer(device):
     return device.getHierarchyViewer()
 
-def find_view_by_id(device, view_id):
+def find_view_by_id(device, hierarchy_viewer, view_id):
     print 'get view by id: %s' %(view_id)
-    hierarchy_viewer = get_hierarchy_viewer(device)
     view_node = hierarchy_viewer.findViewById(view_id)
-    
     return view_node
 
-def get_text_by_id(device, view_id):
+def get_text_by_id(device, hierarchy_viewer, view_id):
     print 'get text view by id: %s' %(view_id)
-    hierarchy_viewer = get_hierarchy_viewer(device)
     view_node = hierarchy_viewer.findViewById(view_id)
+    return hierarchy_viewer.getText(view_node).encode('utf-8')
 
-    return hierarchy_viewer.getText(view_node).encode('utf8')
-
-def wait_for_view_existance(device, view_id, timeout=3):
-    for i in range(timeout):
-        view_node = find_view_by_id(device, view_id)
+def wait_for_view_existance(device, hierarchy_viewer, view_id, timeout=3):
+    for i in range(1,(timeout+1)):
+        view_node = find_view_by_id(device, hierarchy_viewer, view_id)
         if view_node is None:
-            print 'try to find object %d times, and wait 1 sec' %(i + 1)
+            print 'try to find object %d times, and wait 1 sec' %i
             time.sleep(1)
         else:
-            print 'True, wait for view %s existence.'
-            return
+            return True
             
-    print 'False, wait for view %s existence. Test exit'
-    exit(1)
-    
-    
+    return False
+
+
 # ----------------------------------------------------
 # Device actions
 # ----------------------------------------------------
