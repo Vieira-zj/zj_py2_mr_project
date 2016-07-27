@@ -29,6 +29,15 @@ from com.android.monkeyrunner.easy import EasyMonkeyDevice
 # ----------------------------------------------------
 # Device functions
 # ----------------------------------------------------
+def device_connect_and_return(device_no):
+    print 'create monkey device %s' %(device_no)
+    device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
+    if not device:
+        print >> sys.stderr,"fail"
+        sys.exit(1)
+
+    return device
+
 def get_easy_device(device_no):
     device = device_connect_and_return(device_no)
     easy_device = EasyMonkeyDevice(device)
@@ -38,15 +47,6 @@ def get_easy_device(device_no):
         exit(1)
 
     return easy_device
-
-def device_connect_and_return(device_no):
-    print 'create monkey device %s' %(device_no)
-    device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
-    if not device:
-        print >> sys.stderr,"fail"
-        sys.exit(1)
-
-    return device
 
 def start_activity(device, component_name):
     print 'start activity %s' %(component_name)
@@ -115,6 +115,9 @@ def wait_for_view_existance(device, view_id, timeout=3):
 # ----------------------------------------------------
 # Device actions
 # ----------------------------------------------------
+def mr_wait(wait_time=1.0):
+    mr.sleep(wait_time)
+
 def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
     device.press(key)
     mr.sleep(wait_time)
@@ -122,7 +125,6 @@ def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
 def input_and_wait(device, text, wait_time=MrBaseConstants.g_short_wait_time):
     device.type(text)
     mr.sleep(wait_time)
-
 
 # ----------------------------------------------------
 # Log functions

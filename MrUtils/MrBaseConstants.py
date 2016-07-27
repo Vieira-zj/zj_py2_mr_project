@@ -96,7 +96,7 @@ KEY_TV = 'unknown'
 # ----------------------------------------------------
 PRESS_TYPE_UP = 'UP'
 PRESS_TYPE_DOWN = 'DOWN'
-PRESS_TYPE_UD = 'DOWN_AND_UP'
+PRESS_TYPE_DU = 'DOWN_AND_UP'
 
 
 # ----------------------------------------------------
