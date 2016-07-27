@@ -19,10 +19,10 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_script = 'MrTestDemo02.py'
+g_user_run_script = 'MrTestLauncher.py'
 
 g_user_logcate_log_level = 'I'
-g_user_flag_adb_connect = False
+g_user_flag_create_adb_connect = False
 
 
 # ----------------------------------------------------------
@@ -47,7 +47,7 @@ def run_setup():
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
     MrBaseConstants.init_g_path_vars_for_win(g_user_run_num)
 
-    if g_user_flag_adb_connect:
+    if g_user_flag_create_adb_connect:
         MrBaseUtils.adb_connect_with_root(g_user_device_ip)
 
 #     MrBaseUtils.mkdir_for_shell(MrBaseConstants.g_captures_dir_path_for_shell)

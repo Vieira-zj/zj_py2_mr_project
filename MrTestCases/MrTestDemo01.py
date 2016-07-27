@@ -25,7 +25,7 @@ def mr_test_demo_for_device():
     
 #     device.type('helloworld')
     
-#     device.press('KEYCODE_ENTER')  
+#     device.press('KEYCODE_ENTER')
 #     device.press('KEYCODE_BACK')  
     
     # takeSnapshot
