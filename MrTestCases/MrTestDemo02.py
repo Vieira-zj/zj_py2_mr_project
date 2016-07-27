@@ -22,7 +22,7 @@ from MrUtils import MrBaseMrUtils
 # ----------------------------------------------------------
 def init_env():
     print 'initialize the ENV variables.'
-    MrBaseConstants.init_g_path_vars(MrTestRunner.g_user_run_num)
+    MrBaseConstants.init_g_path_vars_for_win(MrTestRunner.g_user_run_num)
 #     MrBaseMrUtils.init_log_config(MrBaseConstants.g_mr_prj_root_path)
 
 

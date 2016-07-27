@@ -14,7 +14,7 @@ from MrUtils import MrBaseUtils
 # ----------------------------------------------------------
 # User defined variables
 # ----------------------------------------------------------
-g_user_device_ip = '172.17.5.134'
+g_user_device_ip = '172.17.5.106'
 g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
@@ -23,6 +23,7 @@ g_user_run_script = 'MrTestDemo02.py'
 
 g_user_logcate_log_level = 'I'
 g_user_flag_adb_connect = False
+
 
 # ----------------------------------------------------------
 # Build tests
@@ -44,7 +45,7 @@ def get_all_tests_from_dir(dir_path):
 
 def run_setup():
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
-    MrBaseConstants.init_g_path_vars(g_user_run_num)
+    MrBaseConstants.init_g_path_vars_for_win(g_user_run_num)
 
     if g_user_flag_adb_connect:
         MrBaseUtils.adb_connect_with_root(g_user_device_ip)
@@ -53,7 +54,7 @@ def run_setup():
 #     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
 
 def run_clearup():
-    print 'TODO: runner clearup'
+    print 'TODO:'
 #     MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, 
 #                              MrBaseConstants.g_mr_log_sub_dir_path_for_win)
 
@@ -78,9 +79,9 @@ def mr_process():
         exit(1)
     
     for test_script in test_scripts:
-        print '-----> start run test script: %s' %(test_script)
+        print 'START ---> run test script: %s' %(test_script)
         run_mr_script(test_script)
-        print '-----> end run test script: %s' %(test_script)
+        print 'END ---> run test script: %s' %(test_script)
         
 def main(fn):
     run_setup()
