@@ -16,6 +16,7 @@ import os
 g_component_settings = 'tv.fun.settings/.general.GeneralSettingsActivity'
 g_component_filemanager = 'tv.fun.filemanager/.FunFileManagerActivity'
 g_component_launcher_home = 'com.bestv.ott/.home.HomeActivity'
+g_component_video_player = 'com.bestv.ott/.player.FunVideoPlayerActivity'
 g_component_video_news = 'com.besttv.ott/.NewsHomeActivity'
 
 g_cur_date = time.strftime('%Y%m%d')
@@ -27,7 +28,7 @@ g_long_wait_time = 5.0  # seconds
 g_time_out = 8.0
 
 g_mr_tcs_prefix = 'MrTest'
-g_capture_suffix = 'png'
+g_pic_suffix = 'png'
 
 
 # ----------------------------------------------------
