@@ -39,6 +39,7 @@ g_mr_tcs_dir_path = ''
 
 g_mr_log_root_dir_path_for_win = ''
 g_mr_log_sub_dir_path_for_win = ''
+g_mr_log_file_path_for_win = ''
 g_snapshot_dir_path_for_win = ''
 
 g_mr_log_root_dir_path_for_shell = ''
@@ -50,14 +51,16 @@ def init_g_path_vars_for_win(run_num):
     
     global g_mr_log_root_dir_path_for_win
     global g_mr_log_sub_dir_path_for_win
+    global g_mr_log_file_path_for_win
     global g_snapshot_dir_path_for_win
     
     g_mr_prj_root_path = os.environ['MR_PROJECT_PATH']
     g_mr_tcs_dir_path = os.path.join(g_mr_prj_root_path, 'MrTestCases')
     
-    g_mr_log_root_dir_path_for_win = r'%s\mr_test_logs' %(g_mr_prj_root_path)
+    g_mr_log_root_dir_path_for_win = r'%s\mr_test_logs' %g_mr_prj_root_path
     g_mr_log_sub_dir_path_for_win = r'%s\mr_logs_%s_%s' %(g_mr_log_root_dir_path_for_win, g_cur_date, run_num)
-    g_snapshot_dir_path_for_win = r'%s\snapshot' %(g_mr_log_sub_dir_path_for_win)
+    g_mr_log_file_path_for_win = '%s\mr_log_%s.log' %(g_mr_log_sub_dir_path_for_win, g_cur_time)
+    g_snapshot_dir_path_for_win = r'%s\snapshot' %g_mr_log_sub_dir_path_for_win
 
 def init_g_path_vars_for_shell(run_num):
     global g_mr_log_root_dir_path_for_shell

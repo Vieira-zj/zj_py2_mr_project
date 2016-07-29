@@ -30,7 +30,7 @@ from com.android.monkeyrunner.easy import EasyMonkeyDevice
 # Device functions
 # ----------------------------------------------------
 def device_connect_and_return(device_no):
-    print 'create monkey device %s' %(device_no)
+    print 'create monkey device %s\n' %(device_no)
     device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
     if not device:
         print >> sys.stderr,"fail"

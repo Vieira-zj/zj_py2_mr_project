@@ -27,7 +27,7 @@ def test_open_bottom_film_tab(device, hierarchy_viewer, snapshot_dir):
     else:
         print 'Film tab main title: %s' %main_title
         print 'PASS, test_bottom_film_tab'
-
+    
 def test_open_bottom_tv_tab(device, hierarchy_viewer, snapshot_dir):
     MrBaseMrUtils.touch_and_wait(device, (450,800))
     MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_ENTER, MrBaseConstants.g_long_wait_time)
@@ -39,7 +39,7 @@ def test_open_bottom_tv_tab(device, hierarchy_viewer, snapshot_dir):
     else:
         print 'TV tab main title: %s' %main_title
         print 'PASS, test_open_bottom_tv_tab'
-
+        
 def test_open_bottom_children_tab(device, hierarchy_viewer, snapshot_dir):
     MrBaseMrUtils.touch_and_wait(device, (600,750))
     MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_ENTER, MrBaseConstants.g_long_wait_time)
@@ -51,7 +51,7 @@ def test_open_bottom_children_tab(device, hierarchy_viewer, snapshot_dir):
     else:
         print 'Children tab main title: %s' %main_title
         print 'PASS, test_open_bottom_children_tab'
-
+    
 def test_open_bottom_variety_tab():
     print 'TODO:'
 
@@ -65,5 +65,8 @@ def test_open_left_member_tab():
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-MrTestTemplate.main(test_open_bottom_film_tab, test_open_bottom_tv_tab, test_open_bottom_children_tab)
+MrTestTemplate.main(os.path.basename(__file__), 
+                    test_open_bottom_film_tab, 
+                    test_open_bottom_tv_tab, 
+                    test_open_bottom_children_tab)
 

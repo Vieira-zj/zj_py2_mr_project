@@ -1,0 +1,46 @@
+START ---> run test script: MrTestHomeTabs.py
+create monkey device 172.17.5.106:5555
+start: run test case: test_open_bottom_film_tab
+get text of view by id: id/maintitle
+Film tab main title: 鸡皮疙瘩
+PASS, test_bottom_film_tab
+end: run test case: test_open_bottom_film_tab
+
+start: run test case: test_open_bottom_tv_tab
+get text of view by id: id/maintitle
+TV tab main title: 海棠依旧
+PASS, test_open_bottom_tv_tab
+end: run test case: test_open_bottom_tv_tab
+
+start: run test case: test_open_bottom_children_tab
+get text of view by id: id/maintitle
+Children tab main title: 皇家小象烦恼多
+PASS, test_open_bottom_children_tab
+end: run test case: test_open_bottom_children_tab
+
+END ---> run test script: MrTestHomeTabs.py
+
+
+START ---> run test script: MrTestPlayVideo.py
+create monkey device 172.17.5.106:5555
+start: run test case: test_play_film
+get text of view by id: id/detail_title
+Film title: 鸡皮疙瘩
+PASS, test_play_film, verify title of film details page
+PASS, test_bottom_film_tab, verify open video player
+get text of view by id: id/video_player_title
+PASS, test_bottom_film_tab, verify film title when pause player
+Film title: 鸡皮疙瘩 
+get view by id: id/control_panel_pause_layout_btn
+PASS, test_bottom_film_tab, verify pause button when pause player
+get view by id: id/media_progress
+PASS, test_bottom_film_tab, verify seek bar when pause player
+get text of view by id: id/time_total
+PASS, test_bottom_film_tab, verify film time when pause player
+Film time: 01:43:12
+save snapshot to E:\Eclipse_Workspace\PyMrProject\mr_test_logs\mr_logs_20160729_01\snapshot\mr_snapshot_16-07-29 21_05_55.png
+end: run test case: test_play_film
+
+END ---> run test script: MrTestPlayVideo.py
+
+

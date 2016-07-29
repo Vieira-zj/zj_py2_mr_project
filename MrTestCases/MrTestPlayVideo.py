@@ -91,8 +91,9 @@ def test_play_film(device, hierarchy_viewer, snapshot_dir):
 
     MrBaseMrUtils.take_snapshot(device, snapshot_dir)
 
+
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-MrTestTemplate.main(test_play_film)
+MrTestTemplate.main(os.path.basename(__file__), test_play_film)
 

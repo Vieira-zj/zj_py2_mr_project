@@ -52,9 +52,14 @@ def back_to_launcher(device):
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-def main(*arg):   # template
+def main(script_name, *arg):   # template
+    print 'START ---> run test script: %s' %script_name
+    
     suite_set_up()
     for fn in arg:
+        print 'start: run test case: %s' %(fn.__name__)
         test_set_up()
         fn(g_device, g_hierarchy_viewer, g_snapshot_dir)
-
+        print 'end: run test case: %s\n' %(fn.__name__)
+    
+    print 'END ---> run test script: %s\n\n' %script_name
