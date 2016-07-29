@@ -22,12 +22,16 @@ from MrUtils import MrBaseMrUtils
 # ----------------------------------------------------------
 g_device = None
 g_hierarchy_viewer = None
-
+g_snapshot_dir = ''
 
 # ----------------------------------------------------------
 # Helper functions
 # ----------------------------------------------------------
 def suite_set_up():
+    MrBaseConstants.init_g_path_vars_for_win(MrTestRunner.g_user_run_num)
+
+    global g_snapshot_dir
+    g_snapshot_dir=MrBaseConstants.g_snapshot_dir_path_for_win
     global g_device
     g_device = MrBaseMrUtils.device_connect_and_return(MrTestRunner.g_user_device_no)
 
@@ -52,5 +56,5 @@ def main(*arg):   # template
     suite_set_up()
     for fn in arg:
         test_set_up()
-        fn(g_device, g_hierarchy_viewer)
+        fn(g_device, g_hierarchy_viewer, g_snapshot_dir)
 

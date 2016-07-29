@@ -17,7 +17,7 @@ from MrTestCases import MrTestTemplate
 # ----------------------------------------------------------
 # Test cases
 # ----------------------------------------------------------
-def test_play_film(device, hierarchy_viewer):
+def test_play_film(device, hierarchy_viewer, snapshot_dir):
     # on launcher home, open film tab
     MrBaseMrUtils.touch_and_wait(device, (250,750))
     MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_ENTER, MrBaseConstants.g_long_wait_time)
@@ -30,7 +30,7 @@ def test_play_film(device, hierarchy_viewer):
     film_title = MrBaseMrUtils.get_text_by_id(device, hierarchy_viewer, 'id/detail_title')
     if film_title is None or film_title == '':
         print 'FAILED, %s' %msg
-        # capture
+        MrBaseMrUtils.take_snapshot(device, snapshot_dir)
         return
     else:
         print 'Film title: %s' %film_title
@@ -51,6 +51,7 @@ def test_play_film(device, hierarchy_viewer):
         print 'PASS, %s' %msg
     else:
         print 'FAILED, %s' %msg
+        MrBaseMrUtils.take_snapshot(device, snapshot_dir)
         return
     
     # pause player
@@ -64,6 +65,7 @@ def test_play_film(device, hierarchy_viewer):
         print 'Film title: %s' %sub_film_title
     else:
         print 'FAILED, %s' %msg
+        MrBaseMrUtils.take_snapshot(device, snapshot_dir)
     
     msg = 'test_bottom_film_tab, verify pause button when pause player'
     pause_button = MrBaseMrUtils.find_view_by_id(device, hierarchy_viewer, 'id/control_panel_pause_layout_btn')
@@ -87,6 +89,7 @@ def test_play_film(device, hierarchy_viewer):
         print 'PASS, %s' %msg
         print 'Film time: %s' %film_time
 
+    MrBaseMrUtils.take_snapshot(device, snapshot_dir)
 
 # ----------------------------------------------------------
 # Main

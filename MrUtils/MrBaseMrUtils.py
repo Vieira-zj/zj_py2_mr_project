@@ -64,10 +64,10 @@ def wait_for_activity_started(device, component_name):
 def take_snapshot(device, dir_path):
     file_name = 'mr_snapshot_%s.%s' %(time.strftime('%y-%m-%d %H_%M_%S'), MrBaseConstants.g_pic_suffix)
     file_path = os.path.join(dir_path, file_name)
-    print 'snapshot save to %s' %(file_path)
+    print 'save snapshot to %s' %(file_path)
     
     result = device.takeSnapshot()
-    result.writeToFile(file_path, MrBaseConstants.g_pic_suffix);
+    result.writeToFile(file_path, MrBaseConstants.g_pic_suffix)
 
 def adb_screen_capture(dir_path):
     file_name = 'capture_%s.%s' %(time.strftime('%y-%m-%d %H_%M_%S'), MrBaseConstants.g_pic_suffix)

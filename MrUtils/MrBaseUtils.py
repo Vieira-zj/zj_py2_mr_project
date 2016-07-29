@@ -75,17 +75,9 @@ def run_cmd_adb_root_from_subprocess():
             print 'Error, adb root failed.'
             return False
 
-def build_logcat_command(log_path, log_level):
-    return 'adb logcat -c && adb logcat -f %s -v threadtime *:%s' %(log_path, log_level)
-
-def pull_mr_logs(src_path, target_path):
-    cmd = 'adb pull %s %s' %(src_path, target_path)
-    print cmd
-    os.system(cmd)
-
 
 # ----------------------------------------------------
-# IO functions
+# Shell functions
 # ----------------------------------------------------
 def mkdir_for_shell(path_dir):
     cmd = 'adb shell mkdir -p %s' %(path_dir)
@@ -96,15 +88,6 @@ def remove_dir_for_shell(path_dir):
     cmd = 'adb shell rm -rf %s' %(path_dir)
     print cmd
     os.system(cmd)
-
-def create_log_dir_for_win(path_dir):
-    if os.path.exists(path_dir):
-        print 'Warning, the path (%s) is exist.' %(path_dir)
-        return
-    else:
-        os.makedirs(path_dir)
-        time.sleep(1)
-        print 'create directory %s on local.' %(path_dir)
 
 
 if __name__ == '__main__':

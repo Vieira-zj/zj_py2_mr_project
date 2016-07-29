@@ -19,9 +19,9 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
+# g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
+g_user_run_scripts = ['MrTestPlayVideo.py']
 
-g_user_logcate_log_level = 'I'
 g_user_flag_create_adb_connect = False
 
 
@@ -47,6 +47,9 @@ def run_setup():
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
     MrBaseConstants.init_g_path_vars_for_win(g_user_run_num)
 
+    if not os.path.exists(MrBaseConstants.g_snapshot_dir_path_for_win):
+        os.makedirs(MrBaseConstants.g_snapshot_dir_path_for_win)
+
     if g_user_flag_create_adb_connect:
         MrBaseUtils.adb_connect_with_root(g_user_device_ip)
 
@@ -64,7 +67,7 @@ def run_clearup():
 # ----------------------------------------------------------
 def run_mr_script(script_path):
     cmd = '%s %s' %(MrBaseConstants.get_mr_run_bat_path(), script_path)
-    print 'Run script: %s' %(cmd)
+    print 'Run script: %s' %cmd
     ret = os.system(cmd)
     
     if ret != 0:
