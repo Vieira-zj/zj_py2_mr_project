@@ -15,7 +15,7 @@ import time
 
 from MrUtils import MrBaseConstants
 
-from com.android.monkeyrunner import MonkeyRunner as mr
+from com.android.monkeyrunner import MonkeyRunner as mr, MonkeyDevice
 # from com.android.monkeyrunner import MonkeyDevice as md
 # from com.android.monkeyrunner import MonkeyImage as mi
 # from com.android.monkeyrunner import MonkeyView
@@ -29,7 +29,7 @@ from com.android.monkeyrunner.easy import EasyMonkeyDevice
 # ----------------------------------------------------
 # Device functions
 # ----------------------------------------------------
-def device_connect_and_return(device_no):
+def get_monkey_device(device_no):
     print 'create monkey device %s\n' %(device_no)
     device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
     if not device:
@@ -39,7 +39,7 @@ def device_connect_and_return(device_no):
     return device
 
 def get_easy_device(device_no):
-    device = device_connect_and_return(device_no)
+    device = get_monkey_device(device_no)
     easy_device = EasyMonkeyDevice(device)
     if easy_device is None:
         print 'Error, when get the mr device object!'
@@ -127,7 +127,7 @@ def mr_wait(wait_time=1.0):
     mr.sleep(wait_time)
 
 def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
-    device.press(key)
+    device.press(key, MonkeyDevice.DOWN_AND_UP)
     mr.sleep(wait_time)
 
 def input_and_wait(device, text, wait_time=MrBaseConstants.g_short_wait_time):
@@ -135,31 +135,15 @@ def input_and_wait(device, text, wait_time=MrBaseConstants.g_short_wait_time):
     mr.sleep(wait_time)
 
 def touch_and_wait(device, point, wait_time=MrBaseConstants.g_short_wait_time):
-    device.touch(point[0], point[1], MrBaseConstants.PRESS_TYPE_DU)
+    device.touch(point[0], point[1], MonkeyDevice.DOWN_AND_UP)
     mr_wait(wait_time)
 
-
-# ----------------------------------------------------
-# Log functions
-# ----------------------------------------------------
-# def init_log_config(prj_path):
-#     long_format = '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
-#     short_format = '%(filename)-12s: %(levelname)-8s %(message)s'
-#     
-#     long_date_format = '%a, %d %b %Y %H:%M:%S'
-#     short_date_format = '%d %b %H:%M:%S'
-# 
-#     # define console log
-#     logging.basicConfig(level=logging.DEBUG, format=short_format, datefmt=short_date_format)
-#     
-#     # define file log
-#     file_name = 'mr_test_log_%s.log' %(time.strftime('%y-%m-%d %H_%M_%S'))
-#     file_path = os.path.join(prj_path,'mr_test_log',file_name)
-#     print 'log file path ---> %s' %file_path
-#     log_file = logging.FileHandler(filename=file_path, mode='w')
-#     log_file.setLevel(logging.WARN)
-#     log_file.setFormatter(logging.Formatter(fmt=long_format, datefmt=long_date_format))
-#     logging.getLogger('').addHandler(log_file)
+def do_repeat_press_during_time(device, key, during):
+    sleep_time = 0.5
+    start = time.clock()
+    while ((time.clock() - start) < during):
+        device.press(key)
+        mr_wait(sleep_time)
 
 
 # ----------------------------------------------------

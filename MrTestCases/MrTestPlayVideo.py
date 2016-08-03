@@ -91,6 +91,10 @@ def test_play_film(device, hierarchy_viewer, snapshot_dir):
 
     MrBaseMrUtils.take_snapshot(device, snapshot_dir)
 
+    # clear up, reset the film process to start
+    MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_ENTER)
+    MrBaseMrUtils.do_repeat_press_during_time(device,MrBaseConstants.KEY_LEFT,MrBaseConstants.g_time_out)
+
 
 # ----------------------------------------------------------
 # Main

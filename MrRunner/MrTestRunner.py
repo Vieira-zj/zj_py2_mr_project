@@ -19,6 +19,7 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
+g_run_during = 10 * 60   # seconds
 g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
 
 g_user_flag_create_adb_connect = False
@@ -52,13 +53,8 @@ def run_setup():
     if g_user_flag_create_adb_connect:
         MrBaseUtils.adb_connect_with_root(g_user_device_ip)
 
-#     MrBaseUtils.mkdir_for_shell(MrBaseConstants.g_captures_dir_path_for_shell)
-#     MrBaseUtils.create_log_dir_for_win(MrBaseConstants.g_captures_dir_path_for_win)
-
 def run_clearup():
     print 'TODO: run clear up'
-#     MrBaseUtils.pull_mr_logs(MrBaseConstants.g_mr_log_sub_dir_path_for_shell, 
-#                              MrBaseConstants.g_mr_log_sub_dir_path_for_win)
 
 
 # ----------------------------------------------------------
@@ -82,14 +78,23 @@ def mr_process():
         exit(1)
     
     for test_script in test_scripts:
-        print 'START ---> run test script: %s' %test_script
+        print '%s: START ---> run test script: %s' %(MrBaseConstants.g_cur_time,test_script)
         run_mr_script(test_script)
-        print 'END ---> run test script: %s\n' %test_script
+        print '%s: END ---> run test script: %s\n' %(MrBaseConstants.g_cur_time,test_script)
         
-def main(fn):
+def main(fn, during=0):
     run_setup()
     start = int(time.clock())
-    fn()
+    
+    if during > 0:
+        i = 1
+        while ((time.clock() - start) < during):
+            print '-------- Run test suite %d times --------' %i
+            fn()
+            i += 1
+    else:   # run test 1 times
+        fn()
+
     end = int(time.clock())
     run_clearup()
     
@@ -99,4 +104,5 @@ def main(fn):
 if __name__ == '__main__':
 
     main(mr_process)
+    main(mr_process,g_run_during)
     pass

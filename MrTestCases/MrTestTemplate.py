@@ -33,7 +33,7 @@ def suite_set_up():
     global g_snapshot_dir
     g_snapshot_dir=MrBaseConstants.g_snapshot_dir_path_for_win
     global g_device
-    g_device = MrBaseMrUtils.device_connect_and_return(MrTestRunner.g_user_device_no)
+    g_device = MrBaseMrUtils.get_monkey_device(MrTestRunner.g_user_device_no)
 
 def test_set_up():
     global g_hierarchy_viewer
@@ -53,13 +53,13 @@ def back_to_launcher(device):
 # Main
 # ----------------------------------------------------------
 def main(script_name, *arg):   # template
-    print 'START ---> run test script: %s' %script_name
+    print '%s: START ---> run test script: %s' %(MrBaseConstants.g_cur_time,script_name)
     
     suite_set_up()
     for fn in arg:
-        print 'start: run test case: %s' %(fn.__name__)
+        print '%s: start: run test case: %s' %(MrBaseConstants.g_cur_time,fn.__name__)
         test_set_up()
         fn(g_device, g_hierarchy_viewer, g_snapshot_dir)
-        print 'end: run test case: %s\n' %(fn.__name__)
+        print '%s: end: run test case: %s\n' %(MrBaseConstants.g_cur_time,fn.__name__)
     
-    print 'END ---> run test script: %s\n\n' %script_name
+    print '%s: END ---> run test script: %s\n\n' %(MrBaseConstants.g_cur_time,script_name)
