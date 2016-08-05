@@ -83,7 +83,7 @@ def adb_screen_capture(dir_path):
 def get_hierarchy_viewer(device):
     return device.getHierarchyViewer()
 
-def find_view_by_id(device, hierarchy_viewer, view_id):
+def find_view_by_id(hierarchy_viewer, view_id):
     print 'get view by id: %s' %view_id
     
     view_node = None
@@ -95,7 +95,7 @@ def find_view_by_id(device, hierarchy_viewer, view_id):
     
     return view_node
 
-def get_text_by_id(device, hierarchy_viewer, view_id):
+def get_text_by_id(hierarchy_viewer, view_id):
     print 'get text of view by id: %s' %view_id
 
     ret_text = 'null'
@@ -109,10 +109,10 @@ def get_text_by_id(device, hierarchy_viewer, view_id):
 
     return ret_text
 
-def wait_for_view_existance(device, hierarchy_viewer, view_id, timeout=3):
+def wait_for_view_existance(hierarchy_viewer, view_id, timeout=3):
     for i in range(1,(timeout+1)):
         print 'try to find object %d times, and wait 1 sec' %i
-        view_node = find_view_by_id(device, hierarchy_viewer, view_id)
+        view_node = find_view_by_id(hierarchy_viewer, view_id)
         if view_node is not None:
             return True
         time.sleep(1)

@@ -19,7 +19,7 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_run_during = 10 * 60   # seconds
+g_run_during = 0   # seconds, default is 0, run only once
 g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
 
 g_user_flag_create_adb_connect = False
@@ -103,6 +103,5 @@ def main(fn, during=0):
 
 if __name__ == '__main__':
 
-    main(mr_process)
     main(mr_process,g_run_during)
     pass
