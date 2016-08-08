@@ -69,7 +69,7 @@ def test_open_a_film_in_player():
     
     cur_activity = g_device.shell('dumpsys activity | grep mFocusedActivity')  # check video player is on top
     if cur_activity.find(MrBaseConstants.g_component_video_player):
-        print 'Video player: %s' %cur_activity
+        print 'Video player: %s' %cur_activity.strip('\n')
         print 'PASS, %s' %msg
     else:
         MrTestTemplate.failed_and_take_snapshot(msg)
@@ -103,7 +103,7 @@ def test_play_film_and_pause():
     else:
         print 'FAILED, %s' %msg
     
-    msg = 'play_film_and_pause, verify film time when pause player'
+    msg = 'play_film_and_pause, verify film time when pause player\n'
     film_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_total')
     if film_time is None or film_time == '':
         print 'FAILED, %s' %msg
@@ -124,7 +124,7 @@ def test_film_is_playing():
     cur_play_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_current')
     time_end = MrTestTemplate.format_play_time(cur_play_time)
     
-    msg = 'test_film_is_playing, verify playing film'
+    msg = 'test_film_is_playing, verify playing film\n'
     during = time_end - time_start
     print 'Play film during time: %d' %during
     if during >= g_play_time:

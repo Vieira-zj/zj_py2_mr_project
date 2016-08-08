@@ -1,0 +1,106 @@
+16-08-08 18_42_46: START ---> run test script: MrTestHomeTabs.py
+create monkey device 172.17.5.106:5555
+
+16-08-08 18_42_46: start: run test case: test_init
+16-08-08 18_42_46: end: run test case: test_init
+
+16-08-08 18_42_46: start: run test case: test_open_bottom_film_tab
+get text of view by id: id/maintitle
+get view by id: id/maintitle
+Film tab main title: 猎神：冬日之战
+PASS, test_open_bottom_film_tab
+16-08-08 18_42_46: end: run test case: test_open_bottom_film_tab
+
+16-08-08 18_42_46: start: run test case: test_open_bottom_tv_tab
+get text of view by id: id/maintitle
+get view by id: id/maintitle
+TV tab main title: 神犬小七 第二季
+PASS, test_open_bottom_tv_tab
+16-08-08 18_42_46: end: run test case: test_open_bottom_tv_tab
+
+16-08-08 18_42_46: start: run test case: test_open_bottom_children_tab
+get text of view by id: id/maintitle
+get view by id: id/maintitle
+Children tab main title: 爱发明的红猴子
+PASS, test_open_bottom_children_tab
+16-08-08 18_42_46: end: run test case: test_open_bottom_children_tab
+
+16-08-08 18_42_46: start: run test case: test_open_bottom_variety_tab
+get text of view by id: id/maintitle
+get view by id: id/maintitle
+Variety tab main title: 笑傲江湖 第三季
+PASS, test_open_bottom_variety_tab
+16-08-08 18_42_46: end: run test case: test_open_bottom_variety_tab
+
+16-08-08 18_42_46: END ---> run test script: MrTestHomeTabs.py
+
+
+16-08-08 18_44_25: START ---> run test script: MrTestPlayFilm.py
+create monkey device 172.17.5.106:5555
+
+16-08-08 18_44_25: start: run test case: test_init
+16-08-08 18_44_25: end: run test case: test_init
+
+16-08-08 18_44_25: start: run test case: test_main
+get text of view by id: id/detail_title
+get view by id: id/detail_title
+Film title: 猎神：冬日之战
+PASS, test_open_a_film_in_player, verify title of film details page
+Video player:   mFocusedActivity: ActivityRecord{42570aa0 u0 com.bestv.ott/.player.FunVideoPlayerActivity t2}
+PASS, test_open_a_film_in_player, verify video player is on top
+get text of view by id: id/video_player_title
+get view by id: id/video_player_title
+PASS, play_film_and_pause, verify film title when pause player
+Film title: 猎神：冬日之战 
+get view by id: id/control_panel_pause_layout_btn
+PASS, play_film_and_pause, verify pause button when pause player
+get view by id: id/media_progress
+PASS, play_film_and_pause, verify seek bar when pause player
+get text of view by id: id/time_total
+get view by id: id/time_total
+PASS, play_film_and_pause, verify film time when pause player
+
+Film time: 01:53:45
+get text of view by id: id/time_current
+get view by id: id/time_current
+get text of view by id: id/time_current
+get view by id: id/time_current
+Play film during time: 21
+PASS, test_film_is_playing, verify playing film
+
+16-08-08 18_44_25: end: run test case: test_main
+
+16-08-08 18_44_25: END ---> run test script: MrTestPlayFilm.py
+
+
+16-08-08 18_47_26: START ---> run test script: MrTestNewsTab.py
+create monkey device 172.17.5.106:5555
+
+16-08-08 18_47_26: start: run test case: test_init
+16-08-08 18_47_26: end: run test case: test_init
+
+16-08-08 18_47_26: start: run test case: test_main
+get text of view by id: id/news_special_list_item_title
+get view by id: id/news_special_list_item_title
+News tab main title: 绝对头条
+PASS, test_open_news_tab_of_right_area, verify main title text of news tab
+get text of view by id: id/news_play_title
+get view by id: id/news_play_title
+News tab sub title: 菲总统怒骂美大使是伪娘
+PASS, test_open_news_tab_of_right_area, verify sub title text of news tab
+get view by id: id/news_player_view
+Player view: <type 'com.android.hierarchyviewerlib.models.ViewNode'>
+PASS, test_open_news_tab_of_right_area, verify video player
+
+get text of view by id: id/time_current
+get view by id: id/time_current
+get text of view by id: id/time_current
+get view by id: id/time_current
+Play news during time: 16
+PASS, test_playing_news, verify news is playing
+
+16-08-08 18_47_26: end: run test case: test_main
+
+16-08-08 18_47_26: END ---> run test script: MrTestNewsTab.py
+
+

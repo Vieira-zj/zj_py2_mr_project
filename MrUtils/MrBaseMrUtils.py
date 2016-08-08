@@ -99,7 +99,7 @@ def get_text_by_id(hierarchy_viewer, view_id):
     print 'get text of view by id: %s' %view_id
 
     ret_text = 'null'
-    view_node = hierarchy_viewer.findViewById(view_id)
+    view_node = find_view_by_id(hierarchy_viewer, view_id)
     if view_node is not None:
         try:
             ret_text = hierarchy_viewer.getText(view_node).encode('utf-8')
