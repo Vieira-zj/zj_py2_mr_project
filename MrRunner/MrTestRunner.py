@@ -20,7 +20,8 @@ g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
 g_run_during = 0   # seconds, default is 0, run only once
-g_user_run_scripts = ['MrTestHomeTabs.py','MrTestPlayVideo.py']
+# g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayVideo.py','MrTestNewsTab.py')
+g_user_run_scripts = ['MrTestNewsTab.py']  # for test single script
 
 g_user_flag_create_adb_connect = False
 

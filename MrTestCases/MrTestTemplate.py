@@ -36,6 +36,31 @@ def failed_and_take_snapshot(msg):
     print 'FAILED, %s' %msg
     MrBaseMrUtils.take_snapshot(g_device, g_snapshot_dir)
 
+def format_play_time(play_time):
+    mins = ''
+    secs = ''
+    
+    items = play_time.split(':')
+    if len(items) == 2:
+        mins = items[0]
+        secs = items[1]
+    elif len(items) == 3:
+        mins = items[1]
+        secs = items[2]
+    else:
+        print 'The play time(%s) is invalid.' %play_time
+        return 0
+
+    return (convert_str_to_time(mins) * 60 + convert_str_to_time(secs))
+    
+def convert_str_to_time(cur_time):
+    if cur_time == '00':
+        return 0
+    elif cur_time[0] == '0':
+        return int(cur_time[1])    
+    else:
+        return int(cur_time)
+
 
 # ----------------------------------------------------------
 # Setup and clearup
@@ -56,7 +81,7 @@ def test_case_setup():
         exit(1)
 
 def test_case_clearup():
-    print 'TODO:'
+    back_to_launcher(g_device)
 
 def back_to_launcher(device):
     MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_HOME, MrBaseConstants.g_wait_time)
@@ -72,9 +97,15 @@ def main(script_name, *arg):   # template
     
     test_suite_setup()
     for fn in arg:
+        if fn.__name__ == 'test_before' or fn.__name__ == 'test_after':
+            fn()
+            continue
+        
         print '%s: start: run test case: %s' %(MrBaseConstants.g_cur_time,fn.__name__)
         test_case_setup()
         fn()
+        test_case_clearup()
         print '%s: end: run test case: %s\n' %(MrBaseConstants.g_cur_time,fn.__name__)
     
     print '%s: END ---> run test script: %s\n\n' %(MrBaseConstants.g_cur_time,script_name)
+    
