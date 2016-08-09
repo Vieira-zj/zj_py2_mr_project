@@ -19,15 +19,16 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_run_during = 0   # seconds, default is 0, run only once
-g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayFilm.py','MrTestNewsTab.py','MrTestTabsOfRightArea.py')
-# g_user_run_scripts = ['MrTestTabsOfRightArea.py']  # for test single script
+g_user_run_during = 30 * 60  # seconds, default is 0, run only once
+# g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayFilm.py','MrTestNewsTab.py','MrTestTabsOfRightArea.py')
+g_user_run_scripts = ['MrTestPlayFilm.py']  # for test single script
 
+g_user_flag_write_report = True
 g_user_flag_create_adb_connect = False
 
 
 # ----------------------------------------------------------
-# Build tests
+# Helper functions
 # ----------------------------------------------------------
 def get_all_tests_from_dir(dir_path):
     tests = []
@@ -43,6 +44,16 @@ def get_all_tests_from_dir(dir_path):
     else:
         print 'Error, no test case found!'
         exit(1)
+
+def run_mr_script(script_path):
+    cmd = '%s %s' %(MrBaseConstants.get_mr_run_bat_path(), script_path)
+    if g_user_flag_write_report:
+        cmd = '%s >> %s' %(cmd, MrBaseConstants.g_mr_log_file_path_for_win)
+    print 'Run script: %s' %cmd
+
+    ret = os.system(cmd)
+    if ret != 0:
+        print 'Error, when run the monkeyrunner command.'
 
 def run_setup():
     os.environ['MR_PROJECT_PATH'] = os.path.dirname(os.getcwd())
@@ -61,15 +72,6 @@ def run_clearup():
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-def run_mr_script(script_path):
-    cmd = '%s %s >> %s' %(MrBaseConstants.get_mr_run_bat_path(), script_path, 
-                         MrBaseConstants.g_mr_log_file_path_for_win)
-    print 'Run script: %s' %cmd
-    ret = os.system(cmd)
-    
-    if ret != 0:
-        print 'Error, when run the monkeyrunner command.'
-
 def mr_process():
     test_scripts = []
     for run_script in g_user_run_scripts:
@@ -86,13 +88,13 @@ def mr_process():
 def main(fn, during=0):
     run_setup()
     start = int(time.clock())
-    
+
+    run_times = 1
     if during > 0:
-        i = 1
         while ((time.clock() - start) < during):
-            print '-------- Run test suite %d times --------' %i
+            print '-------- Run test suite %d times --------' %run_times
             fn()
-            i += 1
+            run_times += 1
     else:   # run test 1 times
         fn()
 
@@ -104,5 +106,5 @@ def main(fn, during=0):
 
 if __name__ == '__main__':
 
-    main(mr_process,g_run_during)
+    main(mr_process,g_user_run_during)
     pass
