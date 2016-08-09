@@ -17,7 +17,6 @@ from MrTestCases import MrTestTemplate
 # ----------------------------------------------------------
 g_device = None
 g_hierarchy_viewer = None
-g_snapshot_dir = ''
 
 
 # ----------------------------------------------------------
@@ -26,17 +25,15 @@ g_snapshot_dir = ''
 def test_init():
     global g_device
     global g_hierarchy_viewer
-    global g_snapshot_dir
  
     g_device = MrTestTemplate.g_device
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
-    g_snapshot_dir = MrTestTemplate.g_snapshot_dir
 
 def test_open_bottom_film_tab():
     MrTestTemplate.open_tab((250,750))
 
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
-    if main_title is None or main_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot('test_open_bottom_film_tab')
     else:
         print 'Film tab main title: %s' %main_title
@@ -46,7 +43,7 @@ def test_open_bottom_tv_tab():
     MrTestTemplate.open_tab((450,750))
     
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
-    if main_title is None or main_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot('test_open_bottom_tv_tab')
     else:
         print 'TV tab main title: %s' %main_title
@@ -56,7 +53,7 @@ def test_open_bottom_children_tab():
     MrTestTemplate.open_tab((600,750))
 
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
-    if main_title is None or main_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot('test_open_bottom_children_tab')
     else:
         print 'Children tab main title: %s' %main_title
@@ -66,7 +63,7 @@ def test_open_bottom_variety_tab():
     MrTestTemplate.open_tab((850,750))
     
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
-    if main_title is None or main_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot('test_open_bottom_variety_tab')
     else:
         print 'Variety tab main title: %s' %main_title

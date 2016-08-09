@@ -98,7 +98,7 @@ def find_view_by_id(hierarchy_viewer, view_id):
 def get_text_by_id(hierarchy_viewer, view_id):
     print 'get text of view by id: %s' %view_id
 
-    ret_text = 'null'
+    ret_text = ''
     view_node = find_view_by_id(hierarchy_viewer, view_id)
     if view_node is not None:
         try:

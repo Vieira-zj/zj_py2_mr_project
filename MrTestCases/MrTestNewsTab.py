@@ -16,7 +16,6 @@ from MrTestCases import MrTestTemplate
 # ----------------------------------------------------------
 g_device = None
 g_hierarchy_viewer = None
-g_snapshot_dir = ''
 
 
 # ----------------------------------------------------------
@@ -25,18 +24,16 @@ g_snapshot_dir = ''
 def test_init():
     global g_device
     global g_hierarchy_viewer
-    global g_snapshot_dir
  
     g_device = MrTestTemplate.g_device
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
-    g_snapshot_dir = MrTestTemplate.g_snapshot_dir
 
 def test_open_news_tab_of_right_area():
     MrTestTemplate.open_tab((1350,300))
     
     msg = 'test_open_news_tab_of_right_area, verify main title text of news tab'
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_special_list_item_title')
-    if main_title is None or main_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
         return
     else:
@@ -45,7 +42,7 @@ def test_open_news_tab_of_right_area():
 
     msg = 'test_open_news_tab_of_right_area, verify sub title text of news tab'    
     sub_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_play_title')
-    if sub_title is None or sub_title == '':
+    if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
         return
     else:

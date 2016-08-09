@@ -10,8 +10,7 @@ import sys
 import os
 
 sys.path.append(os.environ['MR_PROJECT_PATH'])
-from MrUtils import MrBaseConstants
-from MrUtils import MrBaseMrUtils
+from MrUtils import MrBaseConstants, MrBaseMrUtils
 from MrTestCases import MrTestTemplate
 
 # ----------------------------------------------------------
@@ -19,7 +18,6 @@ from MrTestCases import MrTestTemplate
 # ----------------------------------------------------------
 g_device = None
 g_hierarchy_viewer = None
-g_snapshot_dir = ''
 
 g_film_title = ''
 g_play_time = 20.0
@@ -31,11 +29,9 @@ g_play_time = 20.0
 def test_init():
     global g_device
     global g_hierarchy_viewer
-    global g_snapshot_dir
 
     g_device = MrTestTemplate.g_device
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
-    g_snapshot_dir = MrTestTemplate.g_snapshot_dir
 
 def test_open_a_film_in_player():
     # on launcher home, open film tab
@@ -47,7 +43,7 @@ def test_open_a_film_in_player():
     
     msg = 'test_open_a_film_in_player, verify title of film details page'
     film_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/detail_title')
-    if film_title is None or film_title == '':
+    if MrTestTemplate.verify_null_or_empty(film_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
         return
     else:
@@ -105,7 +101,7 @@ def test_play_film_and_pause():
     
     msg = 'play_film_and_pause, verify film time when pause player\n'
     film_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_total')
-    if film_time is None or film_time == '':
+    if MrTestTemplate.verify_null_or_empty(film_time):
         print 'FAILED, %s' %msg
     else:
         print 'PASS, %s' %msg
