@@ -138,9 +138,9 @@ def test_film_is_playing(play_time):
     else:
         MrTestTemplate.failed_and_take_snapshot(msg)
 
-def test_after_reset_film_process():
+def test_after_reset_film_process(reset_time):
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER)
-    MrBaseMrUtils.do_repeat_press_during_time(g_device,MrBaseConstants.KEY_LEFT,MrBaseConstants.g_long_wait_time)
+    MrBaseMrUtils.do_repeat_press_during_time(g_device, MrBaseConstants.KEY_LEFT, reset_time)
 
 
 # ----------------------------------------------------------
@@ -159,7 +159,8 @@ def test_main():
         print 'Run test test_film_is_playing %d time' %i
         test_film_is_playing(play_time)
 
-    test_after_reset_film_process()
+    reset_time = 60
+    test_after_reset_film_process(reset_time)
 
 
 MrTestTemplate.main(os.path.basename(__file__), test_init, test_main)
