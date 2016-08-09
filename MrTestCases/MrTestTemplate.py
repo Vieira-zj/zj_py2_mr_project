@@ -78,6 +78,9 @@ def test_suite_setup():
     global g_hierarchy_viewer
     g_hierarchy_viewer = MrBaseMrUtils.get_hierarchy_viewer(g_device)
 
+def test_suite_clearup():
+    print 'TODO: get log'
+
 def test_case_setup():
     if not back_to_launcher(g_device):
         print 'Error back to the launcher home!'

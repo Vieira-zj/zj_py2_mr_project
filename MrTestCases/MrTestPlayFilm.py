@@ -34,7 +34,7 @@ def test_init():
     g_device = MrTestTemplate.g_device
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
 
-def test_open_a_film_in_player():
+def test_open_film_in_player():
     # on launcher home, open film tab
     MrTestTemplate.open_tab((250,750))
     
@@ -43,25 +43,24 @@ def test_open_a_film_in_player():
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_DOWN)
 
     # select film and open
+    msg = 'test_setup_open_film_in_player, verify title of film details page'
     move_times = random.randint(2,11)
     for i in range(1,move_times):
         MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_RIGHT)
     MrBaseMrUtils.press_and_wait(g_device,MrBaseConstants.KEY_ENTER,MrBaseConstants.g_long_wait_time)
     
-    msg = 'test_open_a_film_in_player, verify title of film details page'
     film_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/detail_title')
     if MrTestTemplate.verify_null_or_empty(film_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
-        return
+        return False
     else:
-        print 'Film title: %s' %film_title
-        print 'PASS, %s' %msg
-
         global g_film_title
         g_film_title = film_title
-
-    # on film details page, click play to open player
-    msg = 'test_open_a_film_in_player, verify video player is on top\n'
+        print 'Film title: %s' %film_title
+        print 'PASS, %s' %msg
+    
+    # play film
+    msg = 'test_setup_open_film_in_player, verify video player is on top\n'
     wait_time_for_open_player = 10.0
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER, wait_time_for_open_player)
     player = MrBaseMrUtils.find_view_by_id(g_hierarchy_viewer, 'id/playerflipper')
@@ -70,7 +69,7 @@ def test_open_a_film_in_player():
         print 'PASS, %s' %msg
     else:
         print 'FAILED, %s' %msg
-        return
+        return False
     
 #     cur_activity = g_device.shell('dumpsys activity | grep mFocusedActivity')  # check video player is on top
 #     if cur_activity.find(MrBaseConstants.g_component_video_player):
@@ -78,13 +77,15 @@ def test_open_a_film_in_player():
 #         print 'PASS, %s' %msg
 #     else:
 #         MrTestTemplate.failed_and_take_snapshot(msg)
-#         return
+#         return False
+
+    return True
     
 def test_pause_film_play():
     # pause player
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER)
     
-    msg = 'play_film_and_pause, verify film title when pause player'
+    msg = 'test_pause_film_play, verify film title when pause player'
     sub_film_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/video_player_title')
     if g_film_title.strip() == sub_film_title.strip():
         print 'Film title: %s' %sub_film_title
@@ -92,21 +93,21 @@ def test_pause_film_play():
     else:
         MrTestTemplate.failed_and_take_snapshot(msg)
     
-    msg = 'play_film_and_pause, verify pause button when pause player'
+    msg = 'test_pause_film_play, verify pause button when pause player'
     pause_button = MrBaseMrUtils.find_view_by_id(g_hierarchy_viewer, 'id/control_panel_pause_layout_btn')
     if pause_button is not None:
         print 'PASS, %s' %msg
     else:
         print 'FAILED, %s' %msg
     
-    msg = 'play_film_and_pause, verify seek bar when pause player'
+    msg = 'test_pause_film_play, verify seek bar when pause player'
     seek_bar = MrBaseMrUtils.find_view_by_id(g_hierarchy_viewer, 'id/media_progress')
     if seek_bar is not None:
         print 'PASS, %s' %msg
     else:
         print 'FAILED, %s' %msg
     
-    msg = 'play_film_and_pause, verify film time when pause player\n'
+    msg = 'test_pause_film_play, verify film time when pause player\n'
     film_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_total')
     if MrTestTemplate.verify_null_or_empty(film_time):
         print 'FAILED, %s' %msg
@@ -137,7 +138,7 @@ def test_film_is_playing(play_time):
     else:
         MrTestTemplate.failed_and_take_snapshot(msg)
 
-def reset_film_process():
+def test_after_reset_film_process():
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER)
     MrBaseMrUtils.do_repeat_press_during_time(g_device,MrBaseConstants.KEY_LEFT,MrBaseConstants.g_long_wait_time)
 
@@ -146,15 +147,19 @@ def reset_film_process():
 # Main
 # ----------------------------------------------------------
 def test_main():
-    test_open_a_film_in_player()
-    test_pause_film_play()
+    # run as one test case 
+    if not test_open_film_in_player():
+        return
     
+    test_pause_film_play()
+
     replay_times = 3  # default replay 3 times
     play_time = 3 * 60  # default is 3 minutes
     for i in range(1,(replay_times+1)):
         print 'Run test test_film_is_playing %d time' %i
         test_film_is_playing(play_time)
-    
-    reset_film_process()
+
+    test_after_reset_film_process()
+
 
 MrTestTemplate.main(os.path.basename(__file__), test_init, test_main)

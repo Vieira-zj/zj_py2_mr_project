@@ -35,7 +35,7 @@ def test_open_news_tab_of_right_area():
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_special_list_item_title')
     if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
-        return
+        return False
     else:
         print 'News tab main title: %s' %main_title
         print 'PASS, %s' %msg
@@ -44,7 +44,7 @@ def test_open_news_tab_of_right_area():
     sub_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_play_title')
     if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
-        return
+        return False
     else:
         print 'News tab sub title: %s' %sub_title.split(' ')[0]
         print 'PASS, %s' %msg
@@ -53,9 +53,12 @@ def test_open_news_tab_of_right_area():
     player_view = MrBaseMrUtils.find_view_by_id(g_hierarchy_viewer, 'id/news_player_view')
     if player_view is None:
         MrTestTemplate.failed_and_take_snapshot(msg)
+        return False
     else:
         print 'Player view: %s' %type(player_view)
         print 'PASS, %s' %msg
+    
+    return True
 
 def test_playing_news():
     # max new player windows
@@ -91,7 +94,8 @@ def test_playing_news():
 # Main
 # ----------------------------------------------------------
 def test_main():
-    test_open_news_tab_of_right_area()
+    if not test_open_news_tab_of_right_area():
+        return
     test_playing_news()
 
 MrTestTemplate.main(os.path.basename(__file__), 

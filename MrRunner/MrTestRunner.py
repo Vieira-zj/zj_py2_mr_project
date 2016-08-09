@@ -19,7 +19,7 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_during = 30 * 60  # seconds, default is 0, run only once
+g_user_run_during = 60 * 60  # seconds, default is 0, run only once
 # g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayFilm.py','MrTestNewsTab.py','MrTestTabsOfRightArea.py')
 g_user_run_scripts = ['MrTestPlayFilm.py']  # for test single script
 
