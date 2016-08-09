@@ -30,7 +30,6 @@ from com.android.monkeyrunner.easy import EasyMonkeyDevice
 # Device functions
 # ----------------------------------------------------
 def get_monkey_device(device_no):
-    print 'create monkey device %s\n' %(device_no)
     device = mr.waitForConnection(MrBaseConstants.g_wait_time, device_no)
     if not device:
         print >> sys.stderr,"fail"
@@ -42,7 +41,7 @@ def get_easy_device(device_no):
     device = get_monkey_device(device_no)
     easy_device = EasyMonkeyDevice(device)
     if easy_device is None:
-        print 'Error, when get the mr device object!'
+        print 'Error, when get the mr easy device object!'
         exit(1)
 
     return easy_device
@@ -53,7 +52,7 @@ def start_activity(device, component_name):
     wait_for_activity_started(device, component_name)
     
 def wait_for_activity_started(device, component_name):
-    for i in range(0,int(MrBaseConstants.g_time_out)):
+    for i in range(0, int(MrBaseConstants.g_time_out)):
         ret = device.shell('dumpsys activity | grep mFocusedActivity')
         if ret.find(component_name) >= 0:
             return True
@@ -62,17 +61,18 @@ def wait_for_activity_started(device, component_name):
     return False
     
 def take_snapshot(device, dir_path):
-    file_name = 'mr_snapshot_%s.%s' %(time.strftime('%y-%m-%d %H_%M_%S'), MrBaseConstants.g_pic_suffix)
+    file_name = 'mr_snapshot_%s.%s' %(time.strftime('%y-%m-%d_%H%M%S'),MrBaseConstants.g_pic_suffix)
     file_path = os.path.join(dir_path, file_name)
-    print 'save snapshot to %s' %(file_path)
     
+    print 'save snapshot to %s' %(file_path)
     result = device.takeSnapshot()
     result.writeToFile(file_path, MrBaseConstants.g_pic_suffix)
 
 def adb_screen_capture(dir_path):
-    file_name = 'capture_%s.%s' %(time.strftime('%y-%m-%d %H_%M_%S'), MrBaseConstants.g_pic_suffix)
+    file_name = 'capture_%s.%s' %(time.strftime('%y-%m-%d_%H%M%S'),MrBaseConstants.g_pic_suffix)
     path = '%s/%s' %(dir_path, file_name)
-    cmd = 'adb shell screencap -p %s' %(path)
+    cmd = 'adb shell screencap -p %s' %path
+    
     print cmd
     os.system(cmd)
 
@@ -81,7 +81,19 @@ def adb_screen_capture(dir_path):
 # Hierarchy viewer functions
 # ----------------------------------------------------
 def get_hierarchy_viewer(device):
-    return device.getHierarchyViewer()
+    viewer = None
+    try:
+        viewer = device.getHierarchyViewer()
+    except Exception, e:
+        print 'Exception, get the hierarchy viewer!'
+        print 'Exception %s' %e
+        exit(1)
+        
+    if viewer is None:
+        print 'Error, get the hierarchy viewer!'
+        exit(1)
+    
+    return viewer
 
 def find_view_by_id(hierarchy_viewer, view_id):
     print 'get view by id: %s' %view_id
@@ -90,13 +102,13 @@ def find_view_by_id(hierarchy_viewer, view_id):
     try:
         view_node = hierarchy_viewer.findViewById(view_id)
     except Exception, e:
-        print 'Exception when find the view by id(%s)' %view_id
+        print 'Exception, find the view by id(%s)' %view_id
         print 'Exception %s' %e
     
     return view_node
 
 def get_text_by_id(hierarchy_viewer, view_id):
-    print 'get text of view by id: %s' %view_id
+    print 'get text of view: %s' %view_id
 
     ret_text = ''
     view_node = find_view_by_id(hierarchy_viewer, view_id)
@@ -109,7 +121,7 @@ def get_text_by_id(hierarchy_viewer, view_id):
 
     return ret_text
 
-def wait_for_view_existance(hierarchy_viewer, view_id, timeout=3):
+def wait_for_view_existance(hierarchy_viewer,view_id,timeout=MrBaseConstants.g_wait_time):
     for i in range(1,(timeout+1)):
         print 'try to find object %d times, and wait 1 sec' %i
         view_node = find_view_by_id(hierarchy_viewer, view_id)
@@ -123,7 +135,7 @@ def wait_for_view_existance(hierarchy_viewer, view_id, timeout=3):
 # ----------------------------------------------------
 # Device actions
 # ----------------------------------------------------
-def mr_wait(wait_time=1.0):
+def mr_wait(wait_time):
     mr.sleep(wait_time)
 
 def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
@@ -142,13 +154,4 @@ def do_repeat_press_during_time(device, key, during):
     sleep_time = 0.5
     start = time.clock()
     while ((time.clock() - start) < during):
-        device.press(key)
-        mr_wait(sleep_time)
-
-
-# ----------------------------------------------------
-# Main
-# ----------------------------------------------------
-if __name__ == '__main__':
-
-    pass
+        press_and_wait(device, key, sleep_time)

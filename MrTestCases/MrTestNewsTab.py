@@ -29,9 +29,9 @@ def test_init():
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
 
 def test_open_news_tab_of_right_area():
-    MrTestTemplate.open_tab((1350,300))
+    MrTestTemplate.open_launcher_tab((1350,300))
     
-    msg = 'test_open_news_tab_of_right_area, verify main title text of news tab'
+    msg = 'test_open_news_tab_of_right_area, verify main title of NEWS tab'
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_special_list_item_title')
     if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
@@ -40,7 +40,7 @@ def test_open_news_tab_of_right_area():
         print 'News tab main title: %s' %main_title
         print 'PASS, %s' %msg
 
-    msg = 'test_open_news_tab_of_right_area, verify sub title text of news tab'    
+    msg = 'test_open_news_tab_of_right_area, verify sub title of NEWS tab'    
     sub_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/news_play_title')
     if MrTestTemplate.verify_null_or_empty(main_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
@@ -49,7 +49,7 @@ def test_open_news_tab_of_right_area():
         print 'News tab sub title: %s' %sub_title.split(' ')[0]
         print 'PASS, %s' %msg
 
-    msg = 'test_open_news_tab_of_right_area, verify video player\n'
+    msg = 'test_open_news_tab_of_right_area, verify NEWS player\n'
     player_view = MrBaseMrUtils.find_view_by_id(g_hierarchy_viewer, 'id/news_player_view')
     if player_view is None:
         MrTestTemplate.failed_and_take_snapshot(msg)
@@ -64,7 +64,7 @@ def test_playing_news():
     # max new player windows
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_RIGHT)
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_RIGHT)
-    MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER)
+    MrBaseMrUtils.press_and_wait(g_device,MrBaseConstants.KEY_ENTER,MrBaseConstants.g_short_wait_time)
 
     # pause player
     MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER)
@@ -81,9 +81,10 @@ def test_playing_news():
     cur_play_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_current')
     time_end = MrTestTemplate.format_play_time(cur_play_time)
     
-    msg = 'test_playing_news, verify news is playing\n'
     during = time_end - time_start
     print 'Play news during time: %d' %during
+
+    msg = 'test_playing_news, verify news is playing\n'
     if during >= play_time:
         print 'PASS, %s' %msg
     else:

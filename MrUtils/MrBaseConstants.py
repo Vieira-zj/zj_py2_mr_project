@@ -3,7 +3,7 @@
 '''
 @author: zhengjin
 
-Include all the global constant variables.
+Include global variables.
 
 '''
 
@@ -11,7 +11,7 @@ import time
 import os
 
 # ----------------------------------------------------
-# Constant global variables
+# Global constants
 # ----------------------------------------------------
 g_component_settings = 'tv.fun.settings/.general.GeneralSettingsActivity'
 g_component_filemanager = 'tv.fun.filemanager/.FunFileManagerActivity'

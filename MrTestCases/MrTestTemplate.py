@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 '''
 Created on 2016-7-28
 
@@ -27,15 +26,20 @@ g_hierarchy_viewer = None
 # ----------------------------------------------------------
 # Helper methods
 # ----------------------------------------------------------
+def back_to_launcher():
+    MrBaseMrUtils.press_and_wait(g_device,MrBaseConstants.KEY_HOME,MrBaseConstants.g_wait_time)
+    cur_activity = g_device.shell('dumpsys activity | grep mFocusedActivity')
+    return cur_activity.find(MrBaseConstants.g_component_launcher_home)
+
+def open_launcher_tab(point, wait_time=MrBaseConstants.g_long_wait_time):
+    MrBaseMrUtils.touch_and_wait(g_device, point)
+    MrBaseMrUtils.press_and_wait(g_device, MrBaseConstants.KEY_ENTER, wait_time)
+
 def verify_null_or_empty(obj):
     if obj is None or obj == '':
         return True
     else:
         return False
-
-def open_tab(point):
-    MrBaseMrUtils.touch_and_wait(g_device, point)
-    MrBaseMrUtils.press_and_wait(g_device,MrBaseConstants.KEY_ENTER,MrBaseConstants.g_long_wait_time)
 
 def failed_and_take_snapshot(msg):
     print 'FAILED, %s' %msg
@@ -79,39 +83,34 @@ def test_suite_setup():
     g_hierarchy_viewer = MrBaseMrUtils.get_hierarchy_viewer(g_device)
 
 def test_suite_clearup():
-    print 'TODO: get log'
+    print 'TODO: logs'
 
 def test_case_setup():
-    if not back_to_launcher(g_device):
+    if not back_to_launcher():
         print 'Error back to the launcher home!'
         exit(1)
 
 def test_case_clearup():
-    back_to_launcher(g_device)
-
-def back_to_launcher(device):
-    MrBaseMrUtils.press_and_wait(device, MrBaseConstants.KEY_HOME, MrBaseConstants.g_wait_time)
-    cur_activity = device.shell('dumpsys activity | grep mFocusedActivity')
-    return cur_activity.find(MrBaseConstants.g_component_launcher_home)
+    back_to_launcher()
 
 
 # ----------------------------------------------------------
 # Main
 # ----------------------------------------------------------
-def main(script_name, *arg):   # template
-    print '%s: START ---> run test script: %s' %(MrBaseConstants.g_cur_time,script_name)
+def main(script_name, *arg):   # test case template
+    print '%s: START ---> run TEST SCRIPT: %s' %(MrBaseConstants.g_cur_time,script_name)
     
     test_suite_setup()
     for fn in arg:
-        if fn.__name__ == 'test_before' or fn.__name__ == 'test_after':
+        if fn.__name__ == 'test_init':
             fn()
             continue
         
-        print '%s: start: run test case: %s' %(MrBaseConstants.g_cur_time,fn.__name__)
+        print '%s: START: run TEST CASE: %s' %(MrBaseConstants.g_cur_time,fn.__name__)
         test_case_setup()
         fn()
         test_case_clearup()
-        print '%s: end: run test case: %s\n' %(MrBaseConstants.g_cur_time,fn.__name__)
+        print '%s: END: run TEST CASE: %s\n' %(MrBaseConstants.g_cur_time,fn.__name__)
     
-    print '%s: END ---> run test script: %s\n\n' %(MrBaseConstants.g_cur_time,script_name)
+    print '%s: END ---> run TEST SCRIPT: %s\n\n' %(MrBaseConstants.g_cur_time,script_name)
     

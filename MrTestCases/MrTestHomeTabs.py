@@ -3,6 +3,9 @@
 Created on 2016-7-27
 
 @author: zhengjin
+
+Test the tabs on launcher home.
+
 '''
 
 import sys
@@ -30,7 +33,7 @@ def test_init():
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
 
 def test_open_bottom_film_tab():
-    MrTestTemplate.open_tab((250,750))
+    MrTestTemplate.open_launcher_tab((250,750))
 
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
     if MrTestTemplate.verify_null_or_empty(main_title):
@@ -40,7 +43,7 @@ def test_open_bottom_film_tab():
         print 'PASS, test_open_bottom_film_tab'
     
 def test_open_bottom_tv_tab():
-    MrTestTemplate.open_tab((450,750))
+    MrTestTemplate.open_launcher_tab((450,750))
     
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
     if MrTestTemplate.verify_null_or_empty(main_title):
@@ -50,7 +53,7 @@ def test_open_bottom_tv_tab():
         print 'PASS, test_open_bottom_tv_tab'
         
 def test_open_bottom_children_tab():
-    MrTestTemplate.open_tab((600,750))
+    MrTestTemplate.open_launcher_tab((600,750))
 
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
     if MrTestTemplate.verify_null_or_empty(main_title):
@@ -60,7 +63,7 @@ def test_open_bottom_children_tab():
         print 'PASS, test_open_bottom_children_tab'
     
 def test_open_bottom_variety_tab():
-    MrTestTemplate.open_tab((850,750))
+    MrTestTemplate.open_launcher_tab((850,750))
     
     main_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/maintitle')
     if MrTestTemplate.verify_null_or_empty(main_title):

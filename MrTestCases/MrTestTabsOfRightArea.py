@@ -28,11 +28,13 @@ def test_init():
     g_device = MrTestTemplate.g_device
     g_hierarchy_viewer = MrTestTemplate.g_hierarchy_viewer
 
-def test_move_to_right_area_and_open_p11_tab():
-    MrBaseMrUtils.touch_and_wait(g_device, (1700,350),MrBaseConstants.g_wait_time)
+def test_before_move_to_right_area():
+    MrBaseMrUtils.touch_and_wait(g_device,(1700,350),MrBaseConstants.g_wait_time)
+
+def test_open_position_11_tab():
     MrBaseMrUtils.press_and_wait(g_device,MrBaseConstants.KEY_ENTER,MrBaseConstants.g_long_wait_time)
     
-    msg = 'test_move_to_right_area_and_open_first_tab, verify film title'
+    msg = 'test_move_position_11_tab_of_right_area, verify title of details page'
     film_title = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/detail_title')
     if MrTestTemplate.verify_null_or_empty(film_title):
         MrTestTemplate.failed_and_take_snapshot(msg)
@@ -40,12 +42,11 @@ def test_move_to_right_area_and_open_p11_tab():
         print 'Film title: %s' %film_title
         print 'PASS, %s' %msg
     
-def open_p21_tab():
+def test_open_position_21_tab():
     print 'TODO:'
 
-def open_p31_tab():
+def test_open_position_31_tab():
     print 'TODO:'
-
 
 
 # ----------------------------------------------------------
@@ -53,4 +54,5 @@ def open_p31_tab():
 # ----------------------------------------------------------
 MrTestTemplate.main(os.path.basename(__file__), 
                     test_init, 
-                    test_move_to_right_area_and_open_p11_tab)
+                    test_before_move_to_right_area,
+                    test_open_position_11_tab)

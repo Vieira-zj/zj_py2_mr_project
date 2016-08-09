@@ -4,7 +4,7 @@ Created on 2015-7-9
 
 @author: zhengjin
 
-Include non-monkeyrunner functions.
+Include common platform functions.
 
 '''
 
@@ -88,8 +88,3 @@ def remove_dir_for_shell(path_dir):
     cmd = 'adb shell rm -rf %s' %(path_dir)
     print cmd
     os.system(cmd)
-
-
-if __name__ == '__main__':
-
-    pass
