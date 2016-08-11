@@ -46,6 +46,7 @@ def failed_and_take_snapshot(msg):
     MrBaseMrUtils.take_snapshot(g_device, MrBaseConstants.g_snapshot_dir_path_for_win)
 
 def format_play_time(play_time):
+    hours = ''
     mins = ''
     secs = ''
     
@@ -53,22 +54,23 @@ def format_play_time(play_time):
     if len(items) == 2:
         mins = items[0]
         secs = items[1]
+        return (convert_str_to_time(mins) * 60 + convert_str_to_time(secs))
     elif len(items) == 3:
+        hours = items[0]
         mins = items[1]
         secs = items[2]
+        return (convert_str_to_time(hours) * 60 * 60 + convert_str_to_time(mins) * 60 + 
+                convert_str_to_time(secs))
     else:
         print 'The play time(%s) is invalid.' %play_time
         return 0
-
-    return (convert_str_to_time(mins) * 60 + convert_str_to_time(secs))
     
 def convert_str_to_time(cur_time):
     if cur_time == '00':
         return 0
-    elif cur_time[0] == '0':
+    if cur_time[0] == '0':
         return int(cur_time[1])    
-    else:
-        return int(cur_time)
+    return int(cur_time)
 
 
 # ----------------------------------------------------------

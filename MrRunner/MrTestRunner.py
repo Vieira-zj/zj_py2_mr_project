@@ -19,12 +19,13 @@ g_user_device_port = '5555'
 g_user_device_no = '%s:%s' %(g_user_device_ip, g_user_device_port)
 
 g_user_run_num = '01'
-g_user_run_during = 60 * 60  # seconds. if = 0, run only once
+g_user_run_during = 0  # seconds. if = 0, run only once
 
-# g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayFilm.py','MrTestNewsTab.py','MrTestTabsOfRightArea.py')
-g_user_run_scripts = ['MrTestPlayFilm.py']  # run single script
+# g_user_run_scripts = ('MrTestHomeTabs.py','MrTestPlayFilm.py','MrTestNewsTab.py',
+#                       'MrTestTabsOfRightArea.py', 'MrTestPlayTvSerial.py')
+g_user_run_scripts = ['MrTestPlayTvSerial.py']  # run single script
 
-g_user_flag_write_report = True
+g_user_flag_write_report = False
 g_user_flag_create_adb_connect = False
 
 

@@ -110,12 +110,12 @@ def test_pause_film_player():
     else:
         print 'FAILED, %s' %msg
     
-    msg = 'test_pause_film_player, verify film time when pause player\n'
+    msg = 'test_pause_film_player, verify film total time when pause player\n'
     film_time = MrBaseMrUtils.get_text_by_id(g_hierarchy_viewer, 'id/time_total')
     if MrTestTemplate.verify_null_or_empty(film_time):
         print 'FAILED, %s' %msg
     else:
-        print 'Film time: %s' %film_time
+        print 'Film total time: %s' %film_time
         print 'PASS, %s' %msg
 
 def test_film_playing(play_time):
@@ -163,7 +163,7 @@ def test_main():
     replay_times = 3  # default replay 3 times
     play_time = 3 * 60  # default is 3 minutes
     for i in range(1,(replay_times+1)):
-        print 'Run test test_film_is_playing %d time' %i
+        print 'Run test test_film_is_playing %d times' %i
         test_film_playing(play_time)
 
     reset_time = 60

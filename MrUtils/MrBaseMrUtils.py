@@ -95,12 +95,15 @@ def get_hierarchy_viewer(device):
     
     return viewer
 
-def find_view_by_id(hierarchy_viewer, view_id):
+def find_view_by_id(hierarchy_viewer, view_id, root_node=None):
     print 'get view by id: %s' %view_id
     
     view_node = None
     try:
-        view_node = hierarchy_viewer.findViewById(view_id)
+        if root_node is None:
+            view_node = hierarchy_viewer.findViewById(view_id)
+        else:
+            view_node = hierarchy_viewer.findViewById(view_id, root_node)
     except Exception, e:
         print 'Exception, find the view by id(%s)' %view_id
         print 'Exception %s' %e
@@ -121,6 +124,15 @@ def get_text_by_id(hierarchy_viewer, view_id):
 
     return ret_text
 
+def get_text_of_viewnode(hierarchy_viewer, view_node):
+    ret_text = ''
+    try:
+        ret_text = hierarchy_viewer.getText(view_node).encode('utf-8')
+    except Exception, e:
+        print 'Exception %s' %e
+
+    return ret_text
+
 def wait_for_view_existance(hierarchy_viewer,view_id,timeout=MrBaseConstants.g_wait_time):
     for i in range(1,(timeout+1)):
         print 'try to find object %d times, and wait 1 sec' %i
@@ -136,7 +148,7 @@ def wait_for_view_existance(hierarchy_viewer,view_id,timeout=MrBaseConstants.g_w
 # Device actions
 # ----------------------------------------------------
 def mr_wait(wait_time):
-    mr.sleep(wait_time)
+    mr.sleep(wait_time)  # seconds
 
 def press_and_wait(device, key, wait_time=MrBaseConstants.g_short_wait_time):
     device.press(key, MonkeyDevice.DOWN_AND_UP)
@@ -150,6 +162,11 @@ def touch_and_wait(device, point, wait_time=MrBaseConstants.g_short_wait_time):
     device.touch(point[0], point[1], MonkeyDevice.DOWN_AND_UP)
     mr_wait(wait_time)
 
+def do_repeat_press_by_times(device, key, press_times):
+    sleep_time = 0.5
+    for i in range(0,press_times):
+        press_and_wait(device, key, sleep_time)
+    
 def do_repeat_press_during_time(device, key, during):
     sleep_time = 0.5
     start = time.clock()
